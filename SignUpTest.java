@@ -3,13 +3,13 @@ package com.Scripts;
 
 	
 	import org.openqa.selenium.WebDriver;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-//import com.PageFactory.SignUpPage;
-	import PackageFactory.*;
-	import com.generic.BaseTest;
+import com.PageFactory.SignUpPage;
+import com.generic.BaseTest;
 	import com.generic.SeleniumWrapperFunction;
 	import com.generic.Utilities;
 
@@ -19,6 +19,7 @@ import org.testng.annotations.Test;
 	static WebDriver driver =null;
 	SignUpPage objSignUpPage;
 	Utilities objUtilities;
+	
 	@BeforeClass
 	public void beforeMainMethod()
 	{

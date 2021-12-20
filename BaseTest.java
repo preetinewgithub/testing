@@ -14,8 +14,7 @@ public class BaseTest {
 
 	public void initializedWebEnvironment() {
 
-		System.setProperty("webdriver.chrome.driver",
-				"C:\\Users\\SAIFUL\\workspace\\FacebookTAF\\externaljars\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/src/main/resources/drivers/chromedriver.exe");
 		driver = new ChromeDriver();
 
 		objSeleniumWrapperFunction = new SeleniumWrapperFunction(this);
