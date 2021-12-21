@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class BaseTest {
 
 	private static WebDriver driver = null;
-    private String strurl = "https://www.facebook.com";
+    private String strurl = "https://the-internet.herokuapp.com/";
 	// create reference object of objSeleniumWrapperFunction
 	private SeleniumWrapperFunction objSeleniumWrapperFunction;
 
