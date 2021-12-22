@@ -1,6 +1,8 @@
 package com.generic;
 
+
 import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,13 +10,13 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class BaseTest {
 
 	private static WebDriver driver = null;
-    private String strurl = "https://the-internet.herokuapp.com/";
+    private String strurl = "https://opensource-demo.orangehrmlive.com";
 	// create reference object of objSeleniumWrapperFunction
 	private SeleniumWrapperFunction objSeleniumWrapperFunction;
 
 	public void initializedWebEnvironment() {
 
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/src/main/resources/drivers/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\SAIFUL\\workspace\\OrangeHRm\\externalresources\\drivers\\chromedriver.exe");
 		driver = new ChromeDriver();
 
 		objSeleniumWrapperFunction = new SeleniumWrapperFunction(this);
@@ -40,12 +42,12 @@ public class BaseTest {
 		this.objSeleniumWrapperFunction = objSeleniumWrapperFunction;
 	}
 
-	public void tearDown() {
+	/*public void tearDown() {
 		{
 			driver.close();
 			System.out.println("Close The Browser ");
 			System.out.println("===================================================================");
-		}
+		}*/
 	}
 
-}
+
