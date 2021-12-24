@@ -1,9 +1,18 @@
 package com.generic;
 
+import java.time.Duration;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SeleniumWrapperFunction {
 
@@ -37,6 +46,57 @@ public class SeleniumWrapperFunction {
 		}
 		return null;
 	}
+	//ImplicitWait
+	public void setImplicitlyWait(int waitTime){
+		objBaseTest.getDriver().manage().timeouts().implicitlyWait(waitTime, TimeUnit.SECONDS);
+	}
+	//ExplicitWait
+	public boolean explicitWait(By locator, int waitTime){
+		try {
+			WebDriverWait objWebDriverWait= new WebDriverWait(objBaseTest.getDriver(),waitTime);
+			objWebDriverWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+			return true;
+			
+		} catch (Exception exception) {
+			System.out.println("I got exception : "+exception.getMessage());
+			return false;
+		}
+	}
+		
+		//fluentWait
+		public boolean fluentWait(By locator, int waitTime, int polling)
+		{
+		
+	
+			try {
+				Wait<WebDriver> objWait = new FluentWait<WebDriver>(objBaseTest.getDriver())
+						.withTimeout(Duration.ofSeconds(waitTime))
+						.pollingEvery(Duration.ofSeconds(polling))
+						.withMessage("element not found")
+						.ignoring(NoSuchElementException.class);
+				
+				objWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+				return true;
+				
+			} catch (Exception exception) {
+				System.out.println("I got exception : "+exception.getMessage());
+				return false;
+			}
+			
+		}
+			
+			
+			
+			
+			
+			
+		
+		
+		
+		
+		
+	
+	
 	
 	public boolean dragAndDrop(By fromLocator, By toLocator)
 	{
@@ -85,6 +145,22 @@ public class SeleniumWrapperFunction {
 			return false;
 		}
 
+	}
+	
+	public boolean isDisplayed(By locator)
+	{
+		try {
+			objBaseTest.getDriver().findElement(locator).isDisplayed();
+			return true;
+			
+		} catch (Exception e) {
+			System.out.println("Exception is :"+e.getMessage());
+			e.printStackTrace();
+			return false;
+			
+		}
+	
+		
 	}
 	
 	public void setExplicitlyWait(int intTimeUnitInSecond)
