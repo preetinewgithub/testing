@@ -21,7 +21,7 @@ private SeleniumWrapperFunction objSeleniumWrapperFunction;
 	By loc_hdrSignPage = By.xpath("//a[contains(text(), 'Sign in')]");
 	
 	
-	//verify webpage
+	//verify Homepage
 	
 	public void verifyWebPageIsDisplayed()
 	{

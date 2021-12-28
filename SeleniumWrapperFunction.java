@@ -1,6 +1,9 @@
 package com.generic;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.Duration;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +16,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Reporter;
 
 public class SeleniumWrapperFunction {
 
@@ -85,17 +89,32 @@ public class SeleniumWrapperFunction {
 			
 		}
 			
-			
-			
-			
+		public boolean verifySelectedObject(By locator) {
+			try {
+				objBaseTest.getDriver().findElement(locator).isSelected();
+				return true;
+			} catch (Exception exception) {
+				System.out.println("Expection is :" + exception.getMessage());
+				exception.printStackTrace();
+				return false;
+			}
+		}
 			
 			
 		
-		
-		
-		
-		
-	
+		public boolean moveToObject(By locator) {
+			try {
+				WebElement element = objBaseTest.getDriver().findElement(locator);
+				Actions action = new Actions(objBaseTest.getDriver());
+				action.moveToElement(element).perform();
+				return true;
+
+			} catch (Exception exception) {
+				System.out.println("Expection is :" + exception.getMessage());
+				exception.printStackTrace();
+				return false;
+			}
+		}
 	
 	
 	public boolean dragAndDrop(By fromLocator, By toLocator)
@@ -177,6 +196,57 @@ public class SeleniumWrapperFunction {
 			System.out.println("I got exception :"+exception.getMessage());
 			exception.printStackTrace();
 			return false;
+		}
+	}
+	
+	public void verifyBrokenLinks() {
+		String homePage = "http://automationpractice.com/";
+		List<WebElement> links = objBaseTest.getDriver().findElements(By.tagName("a"));
+
+		System.out.println("Total links are " + links.size());
+
+		for (int i = 0; i < links.size(); i++) {
+
+			WebElement ele = links.get(i);
+
+			String url = ele.getAttribute("href");
+
+			if (url == null || url.isEmpty()) {
+				Reporter.log(url + "  URL is either not configured for anchor tag or it is empty");
+				continue;
+			}
+
+			if (!url.startsWith(homePage)) {
+				Reporter.log(url + " - URL belongs to another domain.");
+				continue;
+			}
+
+			verifyActiveLink(url);
+
+		}
+
+	}
+	
+	public void verifyActiveLink(String linkUrl) {
+		try {
+			URL url = new URL(linkUrl);
+
+			HttpURLConnection httpURLConnect = (HttpURLConnection) url.openConnection();
+
+			httpURLConnect.setConnectTimeout(3000);
+
+			httpURLConnect.connect();
+
+			if (httpURLConnect.getResponseCode() == 200) {
+				Reporter.log(linkUrl + " - " + httpURLConnect.getResponseMessage());
+
+			}
+			if (httpURLConnect.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND) {
+				Reporter.log(linkUrl + " - " + httpURLConnect.getResponseMessage() + " - "
+						+ HttpURLConnection.HTTP_NOT_FOUND);
+			}
+		} catch (Exception e) {
+
 		}
 	}
 	
