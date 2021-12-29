@@ -104,7 +104,7 @@ public class SigninTest extends BaseTest {
 	}*/
 	
 	@Test(priority=6)
-	public void TCID_005verifyAllBrokenLinks()
+	public void TCID_006verifyAllBrokenLinks()
 	{
 		objSigninPage.verifyAllBrokenLinks();
 	}
